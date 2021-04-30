@@ -6,3 +6,196 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
+
+/* * is the universal selector it selects all elements */
+/* Some elements like h1 have a default margin/padding so you need to kill this if you don't want it*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* border box removes padding & margin from boxes*/
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #777;
+  padding: 30px;
+}
+/* add font to the body because it will get inherited by all the children & your code will be dry*/
+.header {
+  height: 95vh;
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(126, 213, 111, 0.8),
+    rgba(40, 180, 133, 0.8)),
+  url(../img/hero.jpg);
+  background-size: cover;
+  background-position: top;
+  position: relative;
+
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  /* The coordinates move clockwise on from the x & y axis*/
+}
+
+.logo-box {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.logo {
+  height: 35px;
+}
+
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+
+  backface-visibility: hidden;
+  margin-bottom: 60px;
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+
+  /* these are the properties required for an animation to work. Can all be written together with just "animation" instead of individually */
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  /*
+  animation-delay: 3s;
+  animation-iteration-count: 3;
+  */
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
+  animation: moveInRight 1s ease-out;
+}
+/* block elements take up their whole space(100% of the width) and have line breaks after them */
+
+@keyframes moveInLeft {
+  /* initial state = 0% */
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+  /* final state = 100% */
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  /* initial state = 0% */
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  80% {
+    transform: translateX(-10px);
+  }
+  /* final state = 100% */
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottom {
+  /* initial state = 0% */
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  /* final state = 100% */
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* :link is a pseudo class to style elements under a special condition. It's a state of the btn element*/
+/* .btn:visited default is a link that has been visited being purple instead of blue */
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  transition: all .2s;
+  position: relative;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  /* small click jump, this makes it look like you've clicked the button */
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
+}
+
+.btn::after {
+  /* the first 2 are neccessary in order for it to appear. This pseudo element is treated like a childn of the btn element */
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* this z index pushes the element behind the other element*/
+  transition: all .4s;
+}
+
+.btn-white::after {
+  background-color: #fff;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  /* doubles the size of the element "grows" */
+  opacity: 0;
+  /* makes something invisible */
+}
+
+.btn-animated {
+  animation: moveInBottom .5s ease-out .75s;
+  /* animation: name, duration, style, delay */
+  animation-fill-mode: backwards;
+  /* applies the styling of the 0% to the btn at the start, makes the btn invisible at the start and then come into the screen with the animation */
+}
